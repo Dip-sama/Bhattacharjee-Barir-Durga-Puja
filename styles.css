@@ -1,4 +1,4 @@
-/* Base Styles (Keeping your original styles) */
+/* Base Styles */
 :root {
     --primary-color: #e63946;
     --secondary-color: #ffb703;
@@ -608,7 +608,6 @@ footer {
         transform: translateY(0);
     }
 }
-
 /* ============= NEW RESPONSIVE STYLES ============= */
 
 /* Custom accessibility */
