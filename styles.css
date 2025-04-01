@@ -171,6 +171,7 @@ img {
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('facebook-banner.jpg') no-repeat center center/cover;
     color: white;
     text-align: center;
+    
 }
 
 .hero .container {
