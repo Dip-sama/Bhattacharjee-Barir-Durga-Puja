@@ -116,8 +116,6 @@ img {
 
 .nav-links {
     display: flex;
-      background-color: rgba(255, 255, 255, 0.95);
-    
 }
 
 .nav-links li {
@@ -129,10 +127,10 @@ img {
     font-weight: 500;
 }
 
-.nav-links a:hover,
+/* .nav-links a:hover,
 .nav-links a.active {
     color: var(--primary-color);
-}
+} */
 
 .nav-links a::after {
     content: '';
@@ -562,7 +560,7 @@ footer {
     font-family: 'Tangerine', cursive;
     font-size: 2.5rem;
     margin-bottom: 10px;
-    color: rgb(230, 75, 121);
+    color: var(--secondary-color);
     
 }
 
@@ -573,7 +571,7 @@ footer {
 }
 
 .footer-links a {
-    color: white;
+    color: rgb(230, 75, 121);
 }
 
 .footer-links a:hover {
