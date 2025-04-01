@@ -1,10 +1,157 @@
-// DOM Elements
+// Original DOM Elements code retained
 const navbar = document.getElementById('navbar');
 const menuToggle = document.querySelector('.menu-toggle');
 const navLinks = document.querySelector('.nav-links');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const galleryItems = document.querySelectorAll('.gallery-item');
 const visitorForm = document.getElementById('visitorForm');
+
+// ============= COPY PROTECTION CODE START =============
+// Disable right-click context menu
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+// Disable text selection
+document.body.style.userSelect = 'none';
+document.body.style.webkitUserSelect = 'none';
+document.body.style.msUserSelect = 'none';
+document.body.style.mozUserSelect = 'none';
+
+// Disable dragging of images
+document.querySelectorAll('img').forEach(img => {
+    img.draggable = false;
+    img.addEventListener('dragstart', event => event.preventDefault());
+});
+
+// Disable keyboard shortcuts for copy/paste/print/save
+document.addEventListener('keydown', function(event) {
+    // Prevent Ctrl+C, Ctrl+X, Ctrl+S, Ctrl+P, Ctrl+Shift+I
+    if (
+        (event.ctrlKey && (
+            event.key === 'c' || 
+            event.key === 'x' || 
+            event.key === 's' || 
+            event.key === 'p' || 
+            event.key === 'u' ||
+            (event.shiftKey && event.key === 'i')
+        )) ||
+        // Prevent F12
+        event.key === 'F12'
+    ) {
+        event.preventDefault();
+        return false;
+    }
+});
+
+// Disable copy/cut/paste events
+document.addEventListener('copy', event => event.preventDefault());
+document.addEventListener('cut', event => event.preventDefault());
+document.addEventListener('paste', event => event.preventDefault());
+
+// Show warning message when copy is attempted
+document.addEventListener('selectstart', function(event) {
+    // Allow selection for form elements
+    if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
+        return true;
+    }
+    
+    event.preventDefault();
+    
+    // Optional: Show a toast notification
+    showCopyProtectionToast('Content copying is disabled');
+    
+    return false;
+});
+
+// Create a toast notification function
+function showCopyProtectionToast(message) {
+    // Remove existing toast if present
+    const existingToast = document.querySelector('.copy-protection-toast');
+    if (existingToast) {
+        existingToast.remove();
+    }
+    
+    // Create toast element
+    const toast = document.createElement('div');
+    toast.className = 'copy-protection-toast';
+    toast.textContent = message;
+    
+    // Style the toast
+    toast.style.position = 'fixed';
+    toast.style.bottom = '20px';
+    toast.style.left = '50%';
+    toast.style.transform = 'translateX(-50%)';
+    toast.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+    toast.style.color = 'white';
+    toast.style.padding = '10px 20px';
+    toast.style.borderRadius = '5px';
+    toast.style.zIndex = '10000';
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity 0.3s ease-in-out';
+    
+    // Add to DOM
+    document.body.appendChild(toast);
+    
+    // Trigger animation
+    setTimeout(() => {
+        toast.style.opacity = '1';
+    }, 10);
+    
+    // Remove after 2 seconds
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => {
+            toast.remove();
+        }, 300);
+    }, 2000);
+}
+
+// Protect source code viewing
+// Add CSS to hide source via dev tools (limited effectiveness but adds a layer)
+const protectionStyle = document.createElement('style');
+protectionStyle.innerHTML = `
+    /* Make content invisible when developer tools are open */
+    @media (min-width: 0px) {
+        body:not(.loaded) * {
+            display: none !important;
+        }
+    }
+`;
+document.head.appendChild(protectionStyle);
+
+// Additional source code protection
+(function() {
+    // Detect DevTools
+    const devtools = {
+        isOpen: false,
+        orientation: undefined
+    };
+    
+    // Function to check if DevTools is open
+    const checkDevTools = () => {
+        const threshold = 160;
+        const widthThreshold = window.outerWidth - window.innerWidth > threshold;
+        const heightThreshold = window.outerHeight - window.innerHeight > threshold;
+        
+        if (
+            !(heightThreshold && widthThreshold) && 
+            ((window.Firebug && window.Firebug.chrome && window.Firebug.chrome.isInitialized) || 
+             widthThreshold || 
+             heightThreshold)
+        ) {
+            if (!devtools.isOpen) {
+                devtools.isOpen = true;
+                // Optional: Take action when DevTools is opened
+                document.body.innerHTML = '<div style="text-align:center;padding:50px;">Viewing source code is not allowed.</div>';
+            }
+        } else {
+            devtools.isOpen = false;
+        }
+    };
+    
+    // Check periodically
+    setInterval(checkDevTools, 1000);
+})();
+// ============= COPY PROTECTION CODE END =============
 
 // Sticky Navbar
 window.addEventListener('scroll', () => {
