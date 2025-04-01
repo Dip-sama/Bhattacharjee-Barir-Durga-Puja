@@ -122,12 +122,12 @@ img {
 
 .nav-links li {
     margin-left: 30px;
+      background-color: #1e1e1e;
 }
-
 .nav-links a {
     position: relative;
     font-weight: 500;
-  background-color: #1e1e1e;
+
        list-style: none;
 }
 
