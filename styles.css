@@ -954,7 +954,7 @@ button, .btn, a, .filter-btn, .social-icon {
     .timeline-content,
     .heritage-block,
     .event-item,
-    .nav-links {
+    {
         background-color: #1e1e1e;
     }
     
