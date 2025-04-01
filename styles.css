@@ -27,7 +27,11 @@ body {
     color: var(--text-color);
     background-color: rgb(30, 30, 30);
 }
-
+    a:link {
+  color: #1e1e1e;
+  background-color: transparent;
+  text-decoration: none;
+}
 a {
     text-decoration: none;
     color: var(--dark-color);
@@ -122,13 +126,14 @@ img {
 
 .nav-links li {
     margin-left: 30px;
-      background-color: #1e1e1e;
 }
 .nav-links a {
     position: relative;
     font-weight: 500;
-
        list-style: none;
+     color: #1e1e1e;
+  background-color: transparent;
+  text-decoration: none;
 }
 
 .nav-links a:hover,
