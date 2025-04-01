@@ -1,4 +1,4 @@
-/* Base Styles */
+/* Base Styles (Keeping your original styles) */
 :root {
     --primary-color: #e63946;
     --secondary-color: #ffb703;
@@ -605,4 +605,398 @@ footer {
     }
     to {
         opacity: 1;
-        transform: translateY(0
+        transform: translateY(0);
+    }
+}
+
+/* ============= NEW RESPONSIVE STYLES ============= */
+
+/* Custom accessibility */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Touch-friendly improvements for all devices */
+button, .btn, a, .filter-btn, .social-icon {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 15px;
+    font-size: 16px; /* Prevents iOS zoom on focus */
+}
+
+/* General responsive adjustments */
+@media (max-width: 1200px) {
+    .section-header h2 {
+        font-size: 2.2rem;
+    }
+    
+    .container {
+        width: 95%;
+    }
+}
+
+/* Tablet/iPad */
+@media (max-width: 991px) {
+    /* Section padding */
+    .about-section,
+    .timeline-section,
+    .gallery-section,
+    .events-section,
+    .contact-section {
+        padding: 70px 0;
+    }
+    
+    /* Font size adjustments */
+    .section-header h2 {
+        font-size: 2rem;
+    }
+    
+    .about-text h3,
+    .contact-info h3 {
+        font-size: 1.6rem;
+    }
+    
+    /* Timeline adjustments */
+    .timeline-content h3 {
+        font-size: 1.3rem;
+    }
+    
+    /* Gallery adjustments */
+    .gallery-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+    
+    /* Event item adjustments */
+    .event-date {
+        min-width: 80px;
+        padding: 15px;
+    }
+    
+    .event-date .day {
+        font-size: 1.8rem;
+    }
+}
+
+/* Mobile/Large Phones */
+@media (max-width: 768px) {
+    /* Navigation - Mobile Menu */
+    .menu-toggle {
+        display: flex;
+        z-index: 1001;
+    }
+    
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        height: 100vh;
+        background-color: white;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: 0.5s;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+    }
+    
+    .nav-links.active {
+        right: 0;
+    }
+    
+    .nav-links li {
+        margin: 15px 0;
+        font-size: 1.2rem;
+    }
+    
+    /* Add backdrop when menu is open */
+    .menu-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: 0.3s;
+    }
+    
+    .menu-backdrop.active {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    /* Hero responsive */
+    .hero h1 {
+        font-size: 3.5rem;
+    }
+    
+    .hero h2 {
+        font-size: 1.3rem;
+    }
+    
+    /* Section padding */
+    .about-section,
+    .timeline-section,
+    .gallery-section,
+    .events-section,
+    .contact-section {
+        padding: 60px 0;
+    }
+    
+    .section-header {
+        margin-bottom: 30px;
+    }
+    
+    /* Timeline mobile view */
+    .timeline::after {
+        left: 20px;
+    }
+    
+    .timeline-item {
+        width: 100%;
+        padding-left: 50px;
+        padding-right: 0;
+    }
+    
+    .timeline-item:nth-child(even) {
+        left: 0;
+    }
+    
+    .timeline-content::after {
+        left: -36px !important;
+        right: auto !important;
+    }
+    
+    /* Event items - stack on mobile */
+    .event-item {
+        flex-direction: column;
+    }
+    
+    .event-date {
+        width: 100%;
+        padding: 10px;
+        flex-direction: row;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    /* Footer adjustments */
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .footer-links ul {
+        justify-content: center;
+    }
+}
+
+/* Small Phone Devices */
+@media (max-width: 576px) {
+    /* Smaller font sizes */
+    .section-header h2 {
+        font-size: 1.8rem;
+    }
+    
+    .hero h1 {
+        font-size: 3rem;
+    }
+    
+    .about-text h3,
+    .contact-info h3 {
+        font-size: 1.4rem;
+    }
+    
+    /* Gallery adjustments */
+    .gallery-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .gallery-item {
+        height: 200px;
+    }
+    
+    /* Contact form - full width */
+    .contact-info,
+    .contact-form {
+        min-width: 100%;
+    }
+    
+    /* Footer logo */
+    .footer-logo h3 {
+        font-size: 2rem;
+    }
+}
+
+/* Smartwatch Specific */
+@media (max-width: 320px) {
+    /* Optimize for very small screens */
+    .container {
+        width: 100%;
+        padding: 0 10px;
+    }
+    
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero h2 {
+        font-size: 1rem;
+    }
+    
+    .btn {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+    
+    /* Gallery and timeline simpler layout */
+    .gallery-filter {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .timeline-content {
+        padding: 15px;
+    }
+    
+    /* Simplified footer for very small screens */
+    footer {
+        padding: 30px 0 15px;
+    }
+}
+
+/* High Resolution Displays */
+@media (min-width: 1600px) {
+    .container {
+        max-width: 1400px;
+    }
+    
+    /* Slightly larger text for very large screens */
+    body {
+        font-size: 1.1rem;
+    }
+    
+    .section-header h2 {
+        font-size: 3rem;
+    }
+}
+
+/* For landscape orientation on phones */
+@media (max-height: 500px) and (orientation: landscape) {
+    /* Adjust hero section height */
+    .hero {
+        height: 120vh;
+    }
+    
+    /* Make navigation scroll on small height */
+    .nav-links.active {
+        overflow-y: auto;
+    }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) {
+    /* Show overlay on touch devices without hover */
+    .gallery-item .gallery-overlay {
+        transform: translateY(70%);
+    }
+    
+    .gallery-item:active .gallery-overlay {
+        transform: translateY(0);
+    }
+    
+    /* Improved touch targets */
+    .nav-links a {
+        padding: 10px 0;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --light-color: #1a1a1a;
+        --text-color: #e0e0e0;
+        --dark-color: #f1faee;
+        --border-color: #444;
+    }
+    
+    body {
+        background-color: #121212;
+    }
+    
+    #navbar {
+        background-color: rgba(18, 18, 18, 0.95);
+    }
+    
+    .timeline-content,
+    .heritage-block,
+    .event-item,
+    .nav-links {
+        background-color: #1e1e1e;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        background-color: #2a2a2a;
+        color: #e0e0e0;
+    }
+}
+
+/* Print styles */
+@media print {
+    #navbar, .filter-btn, .btn, footer {
+        display: none !important;
+    }
+    
+    section {
+        page-break-inside: avoid;
+    }
+    
+    body {
+        font-size: 12pt;
+        color: #000;
+        background: #fff;
+    }
+    
+    .container {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+/* Add smooth scroll polyfill for Safari */
+@supports (-webkit-overflow-scrolling: touch) {
+    html {
+        scroll-behavior: auto;
+    }
+    
+    /* JavaScript scrolling will be used instead */
+    .smooth-scroll-safari {
+        transition: all 0.5s;
+    }
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
