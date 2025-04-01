@@ -125,12 +125,13 @@ img {
 .nav-links a {
     position: relative;
     font-weight: 500;
+    background-color:none;
 }
 
-/* .nav-links a:hover,
+.nav-links a:hover,
 .nav-links a.active {
     color: var(--primary-color);
-} */
+}
 
 .nav-links a::after {
     content: '';
