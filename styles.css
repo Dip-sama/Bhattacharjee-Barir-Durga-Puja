@@ -97,7 +97,7 @@ img {
     z-index: 1000;
     background-color: rgba(255, 255, 255, 0.95);
     padding: 15px 0;
-/*     box-shadow: var(--box-shadow); */
+    box-shadow: var(--box-shadow);
     transition: var(--transition);
 }
 
@@ -116,6 +116,8 @@ img {
 
 .nav-links {
     display: flex;
+      background-color: rgba(255, 255, 255, 0.95);
+    
 }
 
 .nav-links li {
@@ -560,7 +562,8 @@ footer {
     font-family: 'Tangerine', cursive;
     font-size: 2.5rem;
     margin-bottom: 10px;
-    color: var(--secondary-color);
+    color: rgb(230, 75, 121);
+    
 }
 
 .footer-links ul {
