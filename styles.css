@@ -27,11 +27,7 @@ body {
     color: var(--text-color);
     background-color: rgb(30, 30, 30);
 }
-    a:link {
-  color: #1e1e1e;
-  background-color: transparent;
-  text-decoration: none;
-}
+
 a {
     text-decoration: none;
     color: var(--dark-color);
@@ -243,14 +239,14 @@ img {
 
 .heritage-block {
     padding: 30px;
-    background-color: white;
+    background-color: #1e1e1e;
     border-radius: 8px;
     box-shadow: var(--box-shadow);
 }
 
 .heritage-block p {
     margin-bottom: 15px;
-    color:#1e1e1e;
+    color: ;
 }
 
 /* Timeline Section */
