@@ -48,29 +48,29 @@
             margin: 0 auto;
         }
         
-        nav {
+        navbar {
             background-color: var(--dark-color);
             padding: 15px 0;
         }
         
-        nav ul {
+        navbar ul {
             display: flex;
             justify-content: center;
             list-style: none;
         }
         
-        nav ul li {
+        navbar ul li {
             margin: 0 15px;
         }
         
-        nav ul li a {
+        navbar ul li a {
             color: white;
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
         }
         
-        nav ul li a:hover {
+        navbar ul li a:hover {
             color: var(--secondary-color);
         }
         
@@ -447,12 +447,12 @@
                 font-size: 1rem;
             }
             
-            nav ul {
+            navbar ul {
                 flex-direction: column;
                 align-items: center;
             }
             
-            nav ul li {
+            navbar ul li {
                 margin: 10px 0;
             }
             
@@ -504,22 +504,28 @@
 </head>
 <body>
     <header>
+        <nav id="navbar">
+            <div class="container">
+                <a href="index.html" class="logo">Bhattacharjee Barir Durga Puja</a>
+                <div class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#events">Events</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
         <div class="header-content">
             <h1>Support Bhattacharjee Bari Durga Puja</h1>
             <p>Your generous contribution helps us preserve our cultural heritage and celebrate the divine mother with traditional grandeur</p>
         </div>
     </header>
-    
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Gallery</a></li>
-            <li><a href="#">Events</a></li>
-            <li><a href="#">Donate</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </nav>
     
     <div class="container">
         <h2 class="section-title animate">Make a Donation</h2>
