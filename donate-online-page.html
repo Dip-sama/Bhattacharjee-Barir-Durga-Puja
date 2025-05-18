@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="dosho-vuja-bangla-typography.jpg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate Online - Bhattacharjee Barir Durga Puja</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Tangerine:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f5eb;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        #navbar {
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        #navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+        
+        .logo {
+            font-family: 'Tangerine', cursive;
+            font-size: 28px;
+            color: #d32f2f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background-color: #d32f2f;
+            margin: 2px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 20px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover, .nav-links a.active {
+            color: #d32f2f;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background-color: #d32f2f;
+            color: white;
+            padding: 100px 0 50px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .page-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-image: url('om-pattern.png');
+            background-repeat: repeat-x;
+            background-size: contain;
+            opacity: 0.2;
+        }
+        
+        .page-header h1 {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 18px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 60px 0;
+        }
+        
+        .donate-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .donate-header {
+            background-color: #f5f5f5;
+            padding: 20px 30px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .donate-header h2 {
+            color: #d32f2f;
+            font-size: 24px;
+        }
+        
+        .donate-body {
+            padding: 30px;
+        }
+        
+        .amount-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .amount-option {
+            flex: 1;
+            min-width: 100px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .amount-option:hover, .amount-option.selected {
+            border-color: #d32f2f;
+            background-color: #fff8e1;
+        }
+        
+        .amount-option.selected {
+            box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.3);
+        }
+        
+        .amount-option h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .amount-option p {
+            color: #d32f2f;
+            font-weight: 600;
+            font-size: 20px;
+        }
+        
+        .custom-amount {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+        }
+        
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            outline: none;
+            border-color: #d32f2f;
+            box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.2);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        .payment-options {
+            margin-bottom: 30px;
+        }
+        
+        .payment-method {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-method:hover, .payment-method.selected {
+            border-color: #d32f2f;
+            background-color: #fff8e1;
+        }
+        
+        .payment-method.selected {
+            box-shadow: 0 0 0 2px rgba(211, 47, 47, 0.3);
+        }
+        
+        .payment-method input[type="radio"] {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .payment-method label {
+            flex: 1;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        
+        .payment-method .payment-icons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .payment-icon {
+            width: 40px;
+            height: 25px;
+            background-color: #f1f1f1;
+            border-radius: 3px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #d32f2f;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 16px;
+        }
+        
+        .btn:hover {
+            background-color: #b71c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(183, 28, 28, 0.3);
+        }
+        
+        .btn.btn-outline {
+            background-color: transparent;
+            border: 2px solid #d32f2f;
+            color: #d32f2f;
+        }
+        
+        .btn.btn-outline:hover {
+            background-color: #d32f2f;
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .footer-logo h3 {
+            font-family: 'Tangerine', cursive;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #999;
+            font-size: 14px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+            
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #fff;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                transform: translateY(-150%);
+                transition: transform 0.3s ease;
+                z-index: 999;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+            }
+            
+            .nav-links li {
+                margin: 10px 0;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .amount-options {
+                flex-direction: column;
+            }
+            
+            .amount-option {
+                min-width: 100%;
+            }
+            
+            .page-header h1 {
+                font-size: 30px;
+            }
+            
+            .page-header p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav id="navbar">
+            <div class="container">
+                <a href="index.html" class="logo">Bhattacharjee Barir Durga Puja</a>
+                <div class="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html#home">Home</a></li>
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#gallery">Gallery</a></li>
+                    <li><a href="index.html#events">Events</a></li>
+                    <li><a href="index.html#donation" class="active">Donation</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Donate Online</h1>
+            <p>Support our celebration and help us preserve our cultural heritage for future generations.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="container">
+            <div class="donate-container">
+                <div class="donate-header">
+                    <h2>Make a Contribution</h2>
+                </div>
+                <div class="donate-body">
+                    <form id="donateForm">
+                        <div class="form-group">
+                            <label>Select Donation Amount</label>
+                            <div class="amount-options">
+                                <div class="amount-option" onclick="selectAmount(this, 1001)">
+                                    <h3>Silver</h3>
+                                    <p>₹1,001</p>
+                                </div>
+                                <div class="amount-option" onclick="selectAmount(this, 5001)">
+                                    <h3>Gold</h3>
+                                    <p>₹5,001</p>
+                                </div>
+                                <div class="amount-option" onclick="selectAmount(this, 11001)">
+                                    <h3>Platinum</h3>
+                                    <p>₹11,001</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group custom-amount">
+                            <label for="customAmount">Or Enter Custom Amount (₹)</label>
+                            <input type="number" id="customAmount" placeholder="Enter amount" min="100">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <textarea id="address" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Select Payment Method</label>
+                            <div class="payment-options">
+                                <div class="payment-method" onclick="selectPayment(this)">
+                                    <input type="radio" name="paymentMethod" id="upi" value="upi">
+                                    <label for="upi">UPI Payment</label>
+                                    <div class="payment-icons">
+                                        <div class="payment-icon">UPI</div>
+                                        <div class="payment-icon">GPay</div>
+                                        <div class="payment-icon">PhonePe</div>
+                                    </div>
+                                </div>
+                                <div class="payment-method" onclick="selectPayment(this)">
+                                    <input type="radio" name="paymentMethod" id="card" value="card">
+                                    <label for="card">Credit/Debit Card</label>
+                                    <div class="payment-icons">
+                                        <div class="payment-icon">Visa</div>
+                                        <div class="payment-icon">MC</div>
+                                    </div>
+                                </div>
+                                <div class="payment-method" onclick="selectPayment(this)">
+                                    <input type="radio" name="paymentMethod" id="netbanking" value="netbanking">
+                                    <label for="netbanking">Net Banking</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="comments">Comments (Optional)</label>
+                            <textarea id="comments" rows="3" placeholder="Share any specific purpose for your donation or message for the committee"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="anonymous"> Make my donation anonymous
+                            </label>
+                        </div>
+                        
+                        <div class="button-container">
+                            <button type="submit" class="btn">Proceed to Payment</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Bhattacharjee Barir Durga Puja</h3>
+                    <p>Celebrating tradition since 1954</p>
+                </div>
+                <div class="footer-links">
+                    <ul>
+                        <li><a href="index.html#home">Home</a></li>
+                        <li><a href="index.html#about">About</a></li>
+                        <li><a href="index.html#gallery">Gallery</a></li>
+                        <li><a href="index.html#events">Events</a></li>
+                        <li><a href="index.html#donation">Donation</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Bhattacharjee Barir Durga Puja. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (menuToggle && navLinks) {
+                menuToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                    this.classList.toggle('active');
+                });
+            }
+        });
+        
+        // Select donation amount
+        function selectAmount(element, amount) {
+            // Remove selected class from all options
+            document.querySelectorAll('.amount-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+            
+            // Update custom amount field
+            document.getElementById('customAmount').value = amount;
+        }
+        
+        // Select payment method
+        function selectPayment(element) {
+            // Remove selected class from all methods
+            document.querySelectorAll('.payment-method').forEach(method => {
+                method.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked method
+            element.classList.add('selected');
+            
+            // Select the radio input inside the clicked element
+            const radioInput = element.querySelector('input[type="radio"]');
+            radioInput.checked = true;
+        }
+        
+        // Form submission handler
+        document.getElementById('donateForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate form
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const amount = document.getElementById('customAmount').value;
+            
+            if (!fullName || !email || !phone || !amount) {
+                alert('Please fill all required fields');
+                return;
+            }
+            
+            // Check if payment method is selected
+            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked');
+            if (!paymentMethod) {
+                alert('Please select a payment method');
+                return;
+            }
+            
+            // Here you would normally proceed to payment gateway
+            // For demo purposes, show a success message
+            alert('Thank you for your donation of ₹' + amount + '! You will be redirected to the payment gateway.');
+            
+            // In a real implementation, you would redirect to payment gateway or submit the form
+        });
+    </script>
+</body>
+</html>
