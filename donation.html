@@ -856,6 +856,10 @@
     </footer>
     
     <script>
+const navbar = document.getElementById('navbar');
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+document.addEventListener('contextmenu', event => event.preventDefault());
         // FAQ Toggle
         document.querySelectorAll('.faq-question').forEach(question => {
             question.addEventListener('click', () => {
