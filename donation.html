@@ -854,4 +854,647 @@
         });
     </script>
 </body>
+      <script>
+    // Add this at the end of your HTML file, just before the closing </body> tag
+
+// Enhanced CSS for new features
+const newStyles = document.createElement('style');
+newStyles.textContent = `
+    .donation-success {
+        background-color: var(--accent-color);
+        color: white;
+        text-align: center;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        display: none;
+        animation: slideDown 0.5s ease-out forwards;
+    }
+    
+    .donation-error {
+        background-color: #f44336;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        display: none;
+        animation: slideDown 0.5s ease-out forwards;
+    }
+    
+    .donor-list {
+        margin-top: 50px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        padding: 30px;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .donor-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    
+    .donor-table th, .donor-table td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .donor-table th {
+        background-color: #f5f5f5;
+        font-weight: 500;
+    }
+    
+    .donor-table tr:last-child td {
+        border-bottom: none;
+    }
+    
+    .payment-processing {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.7);
+        z-index: 1001;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+    .payment-processing-content {
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        text-align: center;
+        max-width: 400px;
+        width: 90%;
+    }
+    
+    .spinner {
+        border: 4px solid rgba(0, 0, 0, 0.1);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border-left-color: var(--primary-color);
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+    }
+    
+    .payment-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .payment-option {
+        padding: 15px 25px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    
+    .payment-option:hover {
+        border-color: var(--primary-color);
+    }
+    
+    .payment-option.selected {
+        border-color: var(--primary-color);
+        background-color: rgba(255, 87, 34, 0.05);
+    }
+    
+    .payment-option img {
+        height: 30px;
+        margin-right: 10px;
+    }
+    
+    .receipt-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.7);
+        z-index: 1001;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .receipt-content {
+        background-color: white;
+        padding: 30px;
+        border-radius: 8px;
+        text-align: left;
+        max-width: 500px;
+        width: 90%;
+        position: relative;
+    }
+    
+    .close-receipt {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 24px;
+        cursor: pointer;
+        color: #666;
+    }
+    
+    .receipt-header {
+        text-align: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee;
+    }
+    
+    .receipt-details {
+        margin-bottom: 25px;
+    }
+    
+    .receipt-detail {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+    
+    .receipt-footer {
+        text-align: center;
+        margin-top: 25px;
+        color: var(--text-color);
+    }
+    
+    .receipt-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+    }
+    
+    .receipt-button {
+        padding: 10px 20px;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    
+    .receipt-button:hover {
+        background-color: #e64a19;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes slideDown {
+        from {
+            transform: translateY(-20px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .donor-table thead {
+            display: none;
+        }
+        
+        .donor-table, .donor-table tbody, .donor-table tr, .donor-table td {
+            display: block;
+            width: 100%;
+        }
+        
+        .donor-table tr {
+            margin-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .donor-table td {
+            text-align: right;
+            padding-left: 50%;
+            position: relative;
+        }
+        
+        .donor-table td::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 15px;
+            width: 50%;
+            text-align: left;
+            font-weight: 500;
+        }
+    }
+`;
+
+document.head.appendChild(newStyles);
+
+// Create new elements for donation success/error messages
+const successMessage = document.createElement('div');
+successMessage.className = 'donation-success animate';
+successMessage.innerHTML = `
+    <h3>Thank You for Your Donation!</h3>
+    <p>Your contribution to Bhattacharjee Bari Durga Puja has been received successfully.</p>
+    <p>A receipt has been sent to your email address.</p>
+`;
+
+const errorMessage = document.createElement('div');
+errorMessage.className = 'donation-error animate';
+errorMessage.innerHTML = `
+    <h3>Transaction Failed</h3>
+    <p>We encountered an issue processing your donation. Please try again or contact our support team.</p>
+`;
+
+// Insert messages after custom donation form
+const customDonation = document.getElementById('custom-donation');
+customDonation.parentNode.insertBefore(successMessage, customDonation.nextSibling);
+customDonation.parentNode.insertBefore(errorMessage, successMessage.nextSibling);
+
+// Create payment processing overlay
+const paymentProcessing = document.createElement('div');
+paymentProcessing.className = 'payment-processing';
+paymentProcessing.innerHTML = `
+    <div class="payment-processing-content">
+        <div class="spinner"></div>
+        <h3>Processing Your Donation</h3>
+        <p>Please do not close this window...</p>
+    </div>
+`;
+document.body.appendChild(paymentProcessing);
+
+// Create receipt modal
+const receiptModal = document.createElement('div');
+receiptModal.className = 'receipt-modal';
+receiptModal.innerHTML = `
+    <div class="receipt-content">
+        <span class="close-receipt">&times;</span>
+        <div class="receipt-header">
+            <h3>Donation Receipt</h3>
+            <p>Bhattacharjee Bari Durga Puja</p>
+        </div>
+        <div class="receipt-details">
+            <div class="receipt-detail">
+                <span>Receipt No:</span>
+                <span id="receipt-no"></span>
+            </div>
+            <div class="receipt-detail">
+                <span>Date:</span>
+                <span id="receipt-date"></span>
+            </div>
+            <div class="receipt-detail">
+                <span>Donor Name:</span>
+                <span id="receipt-name"></span>
+            </div>
+            <div class="receipt-detail">
+                <span>Amount:</span>
+                <span id="receipt-amount"></span>
+            </div>
+            <div class="receipt-detail">
+                <span>Payment Method:</span>
+                <span id="receipt-payment"></span>
+            </div>
+            <div class="receipt-detail">
+                <span>Status:</span>
+                <span id="receipt-status" style="color: var(--accent-color); font-weight: bold;">Completed</span>
+            </div>
+        </div>
+        <div class="receipt-footer">
+            <p>Thank you for supporting our tradition!</p>
+            <p>This donation is eligible for tax exemption under Section 80G.</p>
+        </div>
+        <div class="receipt-buttons">
+            <button class="receipt-button" id="download-receipt">Download Receipt</button>
+            <button class="receipt-button" id="email-receipt">Email Receipt</button>
+        </div>
+    </div>
+`;
+document.body.appendChild(receiptModal);
+
+// Create donor list section
+const donorList = document.createElement('div');
+donorList.className = 'donor-list animate';
+donorList.innerHTML = `
+    <h2 class="section-title">Recent Donors</h2>
+    <p style="text-align: center; margin-bottom: 20px;">We are grateful to these generous donors who have supported our Durga Puja celebration</p>
+    <table class="donor-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody id="donor-table-body">
+            <!-- Donor data will be populated here -->
+        </tbody>
+    </table>
+`;
+
+// Insert donor list before the FAQ section
+const faqSection = document.querySelector('.faq');
+faqSection.parentElement.insertBefore(donorList, faqSection);
+
+// Sample donor data (in a real application, this would come from a database)
+const sampleDonors = [
+    { name: "Arundhati Roy", amount: "₹5,001", date: "May 12, 2025", category: "Patron" },
+    { name: "Vikram Seth", amount: "₹2,501", date: "May 11, 2025", category: "Supporter" },
+    { name: "Jhumpa Lahiri", amount: "₹11,001", date: "May 10, 2025", category: "Anjali Sponsor" },
+    { name: "Amitav Ghosh", amount: "₹1,001", date: "May 8, 2025", category: "Friend" },
+    { name: "Kiran Desai", amount: "₹21,001", date: "May 5, 2025", category: "Bhog Sponsor" }
+];
+
+// Function to populate donor table
+function populateDonorTable() {
+    const tableBody = document.getElementById('donor-table-body');
+    tableBody.innerHTML = ''; // Clear existing data
+    
+    sampleDonors.forEach(donor => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td data-label="Name">${donor.name}</td>
+            <td data-label="Amount">${donor.amount}</td>
+            <td data-label="Date">${donor.date}</td>
+            <td data-label="Category">${donor.category}</td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+// Call function to populate table
+populateDonorTable();
+
+// Enhance the donation form
+const donationForm = document.querySelector('#custom-donation form');
+
+// Modify the payment method section to be more visual
+const paymentMethodsDiv = document.querySelector('.payment-methods');
+paymentMethodsDiv.innerHTML = `
+    <div class="payment-options">
+        <div class="payment-option selected" data-method="upi">
+            <span>UPI</span>
+        </div>
+        <div class="payment-option" data-method="bank">
+            <span>Bank Transfer</span>
+        </div>
+        <div class="payment-option" data-method="check">
+            <span>Check/Cash</span>
+        </div>
+        <div class="payment-option" data-method="card">
+            <span>Credit/Debit Card</span>
+        </div>
+    </div>
+    <input type="hidden" name="payment" id="payment-method" value="upi">
+`;
+
+// Handle payment option selection
+const paymentOptions = document.querySelectorAll('.payment-option');
+paymentOptions.forEach(option => {
+    option.addEventListener('click', () => {
+        // Remove selected class from all options
+        paymentOptions.forEach(opt => opt.classList.remove('selected'));
+        // Add selected class to clicked option
+        option.classList.add('selected');
+        // Update hidden input value
+        document.getElementById('payment-method').value = option.dataset.method;
+    });
+});
+
+// Handle form submission
+donationForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Get form data
+    const formData = new FormData(donationForm);
+    const donorData = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        amount: formData.get('amount'),
+        address: formData.get('address'),
+        payment: formData.get('payment'),
+        message: formData.get('message')
+    };
+    
+    // Simple validation
+    if (!donorData.name || !donorData.email || !donorData.phone || !donorData.amount || !donorData.address) {
+        alert('Please fill all required fields');
+        return;
+    }
+    
+    // Show processing overlay
+    paymentProcessing.style.display = 'flex';
+    
+    // Simulate payment processing (in a real app, this would be an API call)
+    setTimeout(() => {
+        // Hide processing overlay
+        paymentProcessing.style.display = 'none';
+        
+        // 90% chance of success (for demo purposes)
+        const isSuccess = Math.random() < 0.9;
+        
+        if (isSuccess) {
+            // Show success message
+            successMessage.style.display = 'block';
+            errorMessage.style.display = 'none';
+            
+            // Scroll to success message
+            successMessage.scrollIntoView({ behavior: 'smooth' });
+            
+            // Reset form
+            donationForm.reset();
+            
+            // Add donor to the table (in a real app, this would be done via an API)
+            const newDonor = {
+                name: donorData.name,
+                amount: `₹${parseInt(donorData.amount).toLocaleString('en-IN')}`,
+                date: new Date().toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' }),
+                category: getDonorCategory(parseInt(donorData.amount))
+            };
+            
+            sampleDonors.unshift(newDonor); // Add to beginning of array
+            if (sampleDonors.length > 5) sampleDonors.pop(); // Keep only 5 donors
+            populateDonorTable();
+            
+            // Show receipt after a short delay
+            setTimeout(() => {
+                // Populate receipt details
+                document.getElementById('receipt-no').textContent = generateReceiptNumber();
+                document.getElementById('receipt-date').textContent = new Date().toLocaleDateString('en-US', {
+                    year: 'numeric', month: 'long', day: 'numeric'
+                });
+                document.getElementById('receipt-name').textContent = donorData.name;
+                document.getElementById('receipt-amount').textContent = `₹${parseInt(donorData.amount).toLocaleString('en-IN')}`;
+                document.getElementById('receipt-payment').textContent = getPaymentMethodName(donorData.payment);
+                
+                // Show receipt modal
+                receiptModal.style.display = 'flex';
+            }, 1000);
+        } else {
+            // Show error message
+            errorMessage.style.display = 'block';
+            successMessage.style.display = 'none';
+            
+            // Scroll to error message
+            errorMessage.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, 2000); // Simulate 2-second processing time
+});
+
+// Close receipt modal when clicking the X
+document.querySelector('.close-receipt').addEventListener('click', () => {
+    receiptModal.style.display = 'none';
+});
+
+// Close receipt modal when clicking outside of it
+receiptModal.addEventListener('click', (e) => {
+    if (e.target === receiptModal) {
+        receiptModal.style.display = 'none';
+    }
+});
+
+// Handle receipt buttons
+document.getElementById('download-receipt').addEventListener('click', () => {
+    alert('Receipt download initiated. In a real application, this would generate a PDF.');
+    receiptModal.style.display = 'none';
+});
+
+document.getElementById('email-receipt').addEventListener('click', () => {
+    alert('Receipt sent to your email. Thank you for your donation!');
+    receiptModal.style.display = 'none';
+});
+
+// Helper functions
+function generateReceiptNumber() {
+    const date = new Date();
+    const year = date.getFullYear().toString().substr(-2);
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+    return `BBDP-${year}${month}-${random}`;
+}
+
+function getPaymentMethodName(method) {
+    const methods = {
+        'upi': 'UPI',
+        'bank': 'Bank Transfer',
+        'check': 'Check/Cash',
+        'card': 'Credit/Debit Card'
+    };
+    return methods[method] || method;
+}
+
+function getDonorCategory(amount) {
+    if (amount >= 31001) return "Cultural Program Sponsor";
+    if (amount >= 21001) return "Bhog Sponsor";
+    if (amount >= 11001) return "Anjali Sponsor";
+    if (amount >= 5001) return "Patron";
+    if (amount >= 2501) return "Supporter";
+    if (amount >= 1001) return "Friend";
+    return "Donor";
+}
+
+// Add some additional animations for better user experience
+function addScrollAnimation() {
+    document.querySelectorAll('.donation-card').forEach((card, index) => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-15px)';
+            card.style.boxShadow = '0 20px 30px rgba(0,0,0,0.2)';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(-10px)';
+            card.style.boxShadow = '0 15px 30px rgba(0,0,0,0.15)';
+        });
+    });
+}
+
+addScrollAnimation();
+
+// Add smooth scroll effect for donation buttons
+document.querySelectorAll('.donate-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        if (this.getAttribute('href').startsWith('#')) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    });
+});
+
+// Predefined donation amounts based on cards
+document.querySelectorAll('.donation-card').forEach(card => {
+    const amountElement = card.querySelector('.amount');
+    const donateButton = card.querySelector('.donate-btn');
+    
+    if (amountElement && donateButton) {
+        donateButton.addEventListener('click', function(e) {
+            if (this.getAttribute('href').startsWith('#')) {
+                e.preventDefault();
+                const amountText = amountElement.textContent;
+                const amount = parseInt(amountText.replace(/[^\d]/g, ''));
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Set the amount in the form
+                    const amountInput = document.getElementById('amount');
+                    if (amountInput) {
+                        amountInput.value = amount;
+                    }
+                }
+            }
+        });
+    }
+});
+
+// Enhance the sponsor button behavior
+document.querySelectorAll('.sponsor-tier .donate-btn').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        if (this.getAttribute('href').startsWith('#')) {
+            e.preventDefault();
+            
+            // Get the tier price
+            const tierPriceElement = this.parentElement.querySelector('.tier-price');
+            if (tierPriceElement) {
+                const tierPrice = parseInt(tierPriceElement.textContent.replace(/[^\d]/g, ''));
+                
+                // Navigate to the donation form
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Set the amount in the form
+                    const amountInput = document.getElementById('amount');
+                    if (amountInput) {
+                        amountInput.value = tierPrice;
+                    }
+                }
+            }
+        }
+    });
+});
+            </script>
 </html>
