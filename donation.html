@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate - Bhattacharjee Bari Durga Puja</title>
+    <style>
+        :root {
+            --primary-color: #FF5722;
+            --secondary-color: #FFC107;
+            --accent-color: #4CAF50;
+            --dark-color: #333333;
+            --light-color: #f9f9f9;
+            --text-color: #444444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('/api/placeholder/1200/400') center/cover no-repeat;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            position: relative;
+        }
+        
+        .header-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+        
+        .header-content p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        nav {
+            background-color: var(--dark-color);
+            padding: 15px 0;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 15px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        .donation-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .donation-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            width: 300px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .donation-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .card-header h3 {
+            font-size: 1.5rem;
+        }
+        
+        .card-body {
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .amount {
+            font-size: 2rem;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+        }
+        
+        .benefits {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+        
+        .benefits li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .benefits li::before {
+            content: "✓";
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+        }
+        
+        .donate-btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .donate-btn:hover {
+            background-color: #e64a19;
+        }
+        
+        .custom-donation {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 40px;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 50px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            text-align: left;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .payment-methods {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .payment-method {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        
+        .payment-method:hover {
+            border-color: var(--primary-color);
+        }
+        
+        .payment-method input {
+            margin-right: 10px;
+        }
+        
+        .account-details {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 40px;
+            max-width: 600px;
+            margin: 0 auto 50px;
+        }
+        
+        .account-details h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .account-detail {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .account-detail:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            font-weight: 500;
+        }
+        
+        .sponsors {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .sponsor-tiers {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .sponsor-tier {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            width: 300px;
+        }
+        
+        .tier-name {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .tier-price {
+            font-size: 1.8rem;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+        }
+        
+        .tier-benefits {
+            list-style: none;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        
+        .tier-benefits li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .tier-benefits li::before {
+            content: "✓";
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+        }
+        
+        .faq {
+            max-width: 800px;
+            margin: 0 auto 50px;
+        }
+        
+        .faq-item {
+            margin-bottom: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 20px;
+            background-color: #f5f5f5;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .faq-question::after {
+            content: "+";
+            position: absolute;
+            right: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .faq-answer {
+            padding: 20px;
+            display: none;
+        }
+        
+        .faq-item.active .faq-question::after {
+            content: "-";
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        .testimonials {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .testimonial-carousel {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 30px;
+            padding: 20px 0;
+            scrollbar-width: none;
+        }
+        
+        .testimonial-carousel::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .testimonial {
+            flex: 0 0 350px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            scroll-snap-align: start;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        
+        .testimonial-author {
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin: 20px 0;
+        }
+        
+        .footer-links li {
+            margin: 0 15px;
+        }
+        
+        .footer-links li a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links li a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: var(--secondary-color);
+        }
+        
+        @media (max-width: 768px) {
+            .header-content h1 {
+                font-size: 2rem;
+            }
+            
+            .header-content p {
+                font-size: 1rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .donation-options {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .donation-card {
+                width: 100%;
+                max-width: 350px;
+            }
+            
+            .account-detail {
+                flex-direction: column;
+            }
+            
+            .detail-label {
+                margin-bottom: 5px;
+            }
+            
+            .sponsor-tiers {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .sponsor-tier {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>Support Bhattacharjee Bari Durga Puja</h1>
+            <p>Your generous contribution helps us preserve our cultural heritage and celebrate the divine mother with traditional grandeur</p>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Gallery</a></li>
+            <li><a href="#">Events</a></li>
+            <li><a href="#">Donate</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <h2 class="section-title animate">Make a Donation</h2>
+        <p class="text-center animate" style="text-align: center; margin-bottom: 40px;">
+            Your support enables us to continue our century-old tradition of celebrating Durga Puja with complete devotion and cultural richness. Every contribution, big or small, helps us maintain our heritage celebrations.
+        </p>
+        
+        <div class="donation-options">
+            <div class="donation-card animate">
+                <div class="card-header">
+                    <h3>Friend</h3>
+                </div>
+                <div class="card-body">
+                    <div class="amount">₹1,001</div>
+                    <ul class="benefits">
+                        <li>Name in digital donor list</li>
+                        <li>Prasad delivery</li>
+                        <li>Digital photo album access</li>
+                    </ul>
+                    <a href="#custom-donation" class="donate-btn">Donate</a>
+                </div>
+            </div>
+            
+            <div class="donation-card animate" style="animation-delay: 0.2s;">
+                <div class="card-header">
+                    <h3>Supporter</h3>
+                </div>
+                <div class="card-body">
+                    <div class="amount">₹2,501</div>
+                    <ul class="benefits">
+                        <li>Name in printed donor list</li>
+                        <li>Prasad delivery</li>
+                        <li>Digital photo album access</li>
+                        <li>Special puja participation</li>
+                    </ul>
+                    <a href="#custom-donation" class="donate-btn">Donate</a>
+                </div>
+            </div>
+            
+            <div class="donation-card animate" style="animation-delay: 0.4s;">
+                <div class="card-header">
+                    <h3>Patron</h3>
+                </div>
+                <div class="card-body">
+                    <div class="amount">₹5,001</div>
+                    <ul class="benefits">
+                        <li>Name on donor board at venue</li>
+                        <li>Prasad delivery</li>
+                        <li>Digital photo album access</li>
+                        <li>Special puja participation</li>
+                        <li>Exclusive Bhog arrangement</li>
+                    </ul>
+                    <a href="#custom-donation" class="donate-btn">Donate</a>
+                </div>
+            </div>
+        </div>
+        
+        <div id="custom-donation" class="custom-donation animate">
+            <h3 style="margin-bottom: 20px; color: var(--primary-color);">Custom Donation</h3>
+            <form>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="amount">Donation Amount (₹)</label>
+                    <input type="number" id="amount" name="amount" min="101" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Address (for receipt)</label>
+                    <textarea id="address" name="address" rows="3" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Payment Method</label>
+                    <div class="payment-methods">
+                        <label class="payment-method">
+                            <input type="radio" name="payment" value="upi" checked>
+                            UPI
+                        </label>
+                        <label class="payment-method">
+                            <input type="radio" name="payment" value="bank">
+                            Bank Transfer
+                        </label>
+                        <label class="payment-method">
+                            <input type="radio" name="payment" value="check">
+                            Check/Cash
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message (Optional)</label>
+                    <textarea id="message" name="message" rows="3"></textarea>
+                </div>
+                
+                <button type="submit" class="donate-btn" style="border: none; cursor: pointer; font-size: 16px;">Proceed to Donate</button>
+            </form>
+        </div>
+        
+        <div class="account-details animate">
+            <h3>Bank & Payment Details</h3>
+            
+            <div class="account-detail">
+                <div class="detail-label">Account Name:</div>
+                <div>Bhattacharjee Bari Durga Puja Committee</div>
+            </div>
+            
+            <div class="account-detail">
+                <div class="detail-label">Bank Name:</div>
+                <div>State Bank of India</div>
+            </div>
+            
+            <div class="account-detail">
+                <div class="detail-label">Account Number:</div>
+                <div>12345678901234</div>
+            </div>
+            
+            <div class="account-detail">
+                <div class="detail-label">IFSC Code:</div>
+                <div>SBIN0012345</div>
+            </div>
+            
+            <div class="account-detail">
+                <div class="detail-label">UPI ID:</div>
+                <div>bhattacharjee.durga@sbi</div>
+            </div>
+            
+            <div class="account-detail">
+                <div class="detail-label">Google Pay / PhonePe:</div>
+                <div>+91 98765 43210</div>
+            </div>
+        </div>
+        
+        <div class="sponsors animate">
+            <h2 class="section-title">Sponsorship Options</h2>
+            <p style="text-align: center; margin-bottom: 30px;">
+                Become a sponsor for specific puja events and activities
+            </p>
+            
+            <div class="sponsor-tiers">
+                <div class="sponsor-tier">
+                    <div class="tier-name">Anjali Sponsor</div>
+                    <div class="tier-price">₹11,001</div>
+                    <ul class="tier-benefits">
+                        <li>Name on event banner</li>
+                        <li>VIP seating for cultural programs</li>
+                        <li>Special recognition during pushpanjali</li>
+                        <li>Exclusive photo session with pratima</li>
+                    </ul>
+                    <a href="#custom-donation" class="donate-btn">Become Sponsor</a>
+                </div>
+                
+                <div class="sponsor-tier">
+                    <div class="tier-name">Bhog Sponsor</div>
+                    <div class="tier-price">₹21,001</div>
+                    <ul class="tier-benefits">
+                        <li>Name on event banner</li>
+                        <li>VIP seating for cultural programs</li>
+                        <li>Special mention during bhog distribution</li>
+                        <li>Family photo with committee members</li>
+                        <li>Special prasad package</li>
+                    </ul>
+                    <a href="#custom-donation" class="donate-btn">Become Sponsor</a>
+                </div>
+                
+                <div class="sponsor-tier">
+                    <div class="tier-name">Cultural Program Sponsor</div>
+                    <div class="tier-price">₹31,001</div>
+                    <ul class="tier-benefits">
+                        <li>Name on event banner</li>
+                        <li>VIP seating for cultural programs</li>
+                        <li>Banner display during cultural programs</li>
+                        <li>Special announcement before performances</li>
+                        <li>Meet & greet with performers</li>
+                        <li>Special memento</li>
+                    </ul>
+                    <a href="#custom-donation" class="donate-btn">Become Sponsor</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="faq animate">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">Is my donation tax-deductible?</div>
+                <div class="faq-answer">
+                    Yes, all donations to Bhattacharjee Bari Durga Puja are eligible for tax exemption under Section 80G of the Income Tax Act. We will provide an official receipt for your donation.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">How will my donation be used?</div>
+                <div class="faq-answer">
+                    Your donation will be used for various aspects of the Durga Puja celebration, including idol creation, pandal decoration, cultural programs, prasad preparation, and community services during the festival.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Can I donate anonymously?</div>
+                <div class="faq-answer">
+                    Yes, we respect your privacy. You can choose to remain anonymous by selecting the "Anonymous Donation" option in the donation form.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">Can I donate items instead of money?</div>
+                <div class="faq-answer">
+                    Yes, we welcome in-kind donations such as food items for prasad, decorative items, or other materials needed for the puja. Please contact our committee at <a href="mailto:contact@bhattacharjeebaridurgapuja.org">contact@bhattacharjeebaridurgapuja.org</a> to discuss your contribution.
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">How can I volunteer instead of donating?</div>
+                <div class="faq-answer">
+                    We greatly appreciate volunteer support! Please fill out the volunteer form on our "Get Involved" page or contact our volunteer coordinator at <a href="mailto:volunteer@bhattacharjeebaridurgapuja.org">volunteer@bhattacharjeebaridurgapuja.org</a>.
+                </div>
+            </div>
+        </div>
+        
+        <div class="testimonials animate">
+            <h2 class="section-title">From Our Supporters</h2>
+            
+            <div class="testimonial-carousel">
+                <div class="testimonial">
+                    <p class="testimonial-text">"Being a part of the Bhattacharjee Bari Durga Puja through my donation gives me immense satisfaction. The way they preserve traditions while embracing the community is truly remarkable."</p>
+                    <p class="testimonial-author">- Ananya Mukherjee</p>
+                </div>
+                
+                <div class="testimonial">
+                    <p class="testimonial-text">"I've been donating to this puja for three generations now. The transparency in fund usage and the warmth of the organizers keeps me coming back year after year."</p>
+                    <p class="testimonial-author">- Debashish Chatterjee</p>
+                </div>
+                
+                <div class="testimonial">
+                    <p class="testimonial-text">"As someone who moved away from Bengal, supporting the Bhattacharjee Bari Durga Puja helps me stay connected to my roots and cultural heritage. The online donation process makes it so convenient."</p>
+                    <p class="testimonial-author">- Sarmistha Das</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook">FB</i></a>
+            <a href="#"><i class="fab fa-instagram">IG</i></a>
+            <a href="#"><i class="fab fa-youtube">YT</i></a>
+            <a href="#"><i class="fab fa-twitter">TW</i></a>
+        </div>
+        
+        <ul class="footer-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Gallery</a></li>
+            <li><a href="#">Events</a></li>
+            <li><a href="#">Donate</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        
+        <p>&copy; 2025 Bhattacharjee Bari Durga Puja. All Rights Reserved.</p>
+    </footer>
+    
+    <script>
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+        
+        // Animation on scroll
+        const animateElements = document.querySelectorAll('.animate');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        animateElements.forEach(element => {
+            element.style.opacity = 0;
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+            observer.observe(element);
+        });
+    </script>
+</body>
+</html>
